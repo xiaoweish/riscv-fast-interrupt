@@ -443,7 +443,7 @@ indirect CSR access may or may not be accessible via another method such as memo
 |0x1000+i   | 15:8   | RW  clicintctl[i x 4 + 1] |  15:8   | RW  clicintattr[i x 4 + 1] |  setting for interrupt i x 4 + 1 |    
 |0x1000+i   | 23:16  | RW  clicintctl[i x 4 + 2] |  23:16  | RW  clicintattr[i x 4 + 2] |  setting for interrupt i x 4 + 2 |    
 |0x1000+i   | 31:24  | RW  clicintctl[i x 4 + 3] |  31:24  | RW  clicintattr[i x 4 + 3] |  setting for interrupt i x 4 + 3 |    
-|===----
+|===
 
 In this miselect offset range, 
 Each mireg register controls the clic level/priority setting of four interrupts
