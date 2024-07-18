@@ -641,16 +641,14 @@ NOTE: This register bit is defined as WARL as unimplemented interrupts appear ha
 
 This is an 8-bit WARL read-write register to specify various attributes for each interrupt.
 
-[source]
-----
-  clicintattr[i] register layout
-
-  Bits    Field
-  7:6     mode
-  5:3     reserved (WPRI 0)
-  2:1     trig
-  0       reserved for smclicshv extension (WARL 0)
-----
+.clicintattr[i] register layout
+|===
+| Bits   |Field
+| 7:6    |mode
+| 5:3    |reserved (WPRI 0)
+| 2:1    |trig
+| 0      |reserved for smclicshv extension (WARL 0)
+|===
 
 The 2-bit `trig` WARL field specifies the trigger type and polarity for each
 interrupt input. Bit 1, `trig[0]`, is defined as "edge-triggered"
@@ -666,17 +664,15 @@ operates in.
 NOTE: This register is defined as WARL as some implementations may want to hardwire to fixed values
 only certain mode/trigger/shv types.
 
-[source]
-----
- Encoding for RISC-V privilege levels (mstatus.mpp)
+.Encoding for RISC-V privilege levels (mstatus.mpp)
+|===
+|Level |Encoding|Name             |Abbreviation
+|0     |00      |User/Application |U
+|1     |01      |Supervisor       |S
+|2     |10      |Reserved         |
+|3     |11      |Machine          |M
+|===
 
- Level  Encoding Name              Abbreviation
- 0      00       User/Application  U
- 1      01       Supervisor        S
- 2      10       Reserved
- 3      11       Machine           M
-
-----
 
 NOTE: For security purpose, the `mode` field can only be set to a privilege level that is equal to or lower than the currently running privilege level and if interrupts are supported at that privilege level (e.g. ssclic extension, suclic extension).
 
@@ -730,17 +726,14 @@ This logic is intended to be used with tmexttrigger.intctl as described in the R
 Each interrupt trigger is a 32-bit WARL register with the
 following layout:
 
-[source]
-----
-  clicinttrig register layout
-
-  Bits    Field
-  31      interrupt_trap_enable
-  30      nxti_enable
-  29:13   reserved (WARL 0)
-  12:0    interrupt_number
-
-----
+.clicinttrig register layout
+|===
+| Bits   |Field
+| 31     |interrupt_trap_enable
+| 30     |nxti_enable
+| 29:13  |reserved (WARL 0)
+| 12:0   |interrupt_number
+|===
 
 The `interrupt_number` field selects which number of interrupt input
 is used as the source for this interrupt trigger.
@@ -766,26 +759,24 @@ interrupt mode.
 The interrupt-handling CSRs are listed below, with changes and
 additions for CLIC mode described in the following sections.
 
-[source]
-----
-       Number  Name         Description
-       0x300   mstatus      Status register
-       0x303   mideleg      Interrupt delegation register (INACTIVE IN CLIC MODE)
-       0x304   mie          Interrupt-enable register     (INACTIVE IN CLIC MODE)
-       0x305   mtvec        Trap-handler base address / interrupt mode
- (NEW) 0x307   mtvt         Trap-handler vector table base address
-       0x340   mscratch     Scratch register for trap handlers
-       0x341   mepc         Exception program counter
-       0x342   mcause       Cause of trap
-       0x343   mtval        Bad address or instruction
-       0x344   mip          Interrupt-pending register    (INACTIVE IN CLIC MODE)
- (NEW) 0x345   mnxti        Interrupt handler address and enable modifier
- (NEW) 0xFB1   mintstatus   Current interrupt levels
- (NEW) 0x347   mintthresh   Interrupt-level threshold
- (NEW) 0x348   mscratchcsw  Conditional scratch swap on priv mode change
- (NEW) 0x349   mscratchcswl Conditional scratch swap on level change
-
-----
+|===
+|      Number  |Name         |Description
+|      0x300   |mstatus      |Status register
+|      0x303   |mideleg      |Interrupt delegation register (INACTIVE IN CLIC MODE)
+|      0x304   |mie          |Interrupt-enable register     (INACTIVE IN CLIC MODE)
+|      0x305   |mtvec        |Trap-handler base address / interrupt mode
+|(NEW) 0x307   |mtvt         |Trap-handler vector table base address
+|      0x340   |mscratch     |Scratch register for trap handlers
+|      0x341   |mepc         |Exception program counter
+|      0x342   |mcause       |Cause of trap
+|      0x343   |mtval        |Bad address or instruction
+|      0x344   |mip          |Interrupt-pending register    (INACTIVE IN CLIC MODE)
+|(NEW) 0x345   |mnxti        |Interrupt handler address and enable modifier
+|(NEW) 0xFB1   |mintstatus   |Current interrupt levels
+|(NEW) 0x347   |mintthresh   |Interrupt-level threshold
+|(NEW) 0x348   |mscratchcsw  |Conditional scratch swap on priv mode change
+|(NEW) 0x349   |mscratchcswl |Conditional scratch swap on level change
+|===
 
 ==== Changes to {status} CSRs
 
@@ -828,15 +819,13 @@ specified as the upper XLEN-6 bits of {tvec} (`base`) with six
 lower zero bits appended, which constrains alignment on a 64-byte or
 larger power-of-two boundary.
 
-[source]
-----
- CLIC mode xtvec register layout
-
-  Bits          Field
-  XLEN-1:6      base (WARL)
-  5:2           submode (WARL)
-  1:0           mode (WARL)
-----
+.CLIC mode xtvec register layout
+|===
+| Bits         |Field
+| XLEN-1:6     |base (WARL)
+| 5:2          |submode (WARL)
+| 1:0          |mode (WARL)
+|===
 
 NOTE: Systems implementing both CLIC and CLINT mode may, but are not
 required to, limit alignment of `mtvec` to 64-byte boundaries in both
@@ -913,19 +902,19 @@ reduce the overhead to save and restore that context for an {ret}
 instruction. CLIC mode {cause} also adds state to record progress
 through the trap handling process.
 
-[source]
-----
- mcause
- Bits    Field      Description
- XLEN-1 Interrupt    Interrupt=1, Exception=0
-    30  (reserved for smclicshv extension)
- 29:28  mpp[1:0]     Previous privilege mode, same as mstatus.mpp
-    27  mpie         Previous interrupt enable, same as mstatus.mpie
- 26:24  (reserved)
- 23:16  mpil[7:0]    Previous interrupt level
- 15:12  (reserved)
- 11:0  Exccode[11:0] Exception/interrupt code
-----
+
+.mcause
+|===
+|Bits  | Field        |Description
+|XLEN-1|Interrupt     |Interrupt=1, Exception=0
+|   30 |              |(reserved for smclicshv extension)
+|29:28 |mpp[1:0]      |Previous privilege mode, same as mstatus.mpp
+|   27 |mpie          |Previous interrupt enable, same as mstatus.mpie
+|26:24 |              |(reserved)
+|23:16 |mpil[7:0]     |Previous interrupt level
+|15:12 |              |(reserved)
+|11:0  |Exccode[11:0] |Exception/interrupt code
+|===
 
 The `mcause.mpp` and `mcause.mpie` fields mirror the `mstatus.mpp` and
 `mstatus.mpie` fields, and are aliased into `mcause` to reduce context
@@ -1078,14 +1067,13 @@ A new M-mode CSR, `mintstatus`, holds the active interrupt level for
 each supported privilege mode.  These fields are read-only.  The
 primary reason to expose these fields is to support debug.
 
-[source]
-----
-mintstatus fields
- 31:24 mil
- 23:16 (reserved) # To follow pattern of others.
- 15: 8 sil if ssclic is supported
-  7: 0 uil if usclic is supported
-----
+.mintstatus fields
+|===
+|31:24 |mil
+|23:16 |(reserved) # To follow pattern of others.
+|15: 8 |sil if ssclic is supported
+| 7: 0 |uil if usclic is supported
+|===
 
 The {intstatus} registers are accessible in CLINT mode for system that
 support both modes.
@@ -1381,25 +1369,23 @@ The ssclic extension depends on the smclic extension.
 The interrupt-handling CSRs are listed below, with changes and
 additions for CLIC mode described in the following sections.
 
-[source]
-----
-       Number  Name         Description
-       0x100   sstatus      Status register
-       0x104   sie          Interrupt-enable register     (INACTIVE IN CLIC MODE)
-       0x105   stvec        Trap-handler base address / interrupt mode
- (NEW) 0x107   stvt         Trap-handler vector table base address
-       0x140   sscratch     Scratch register for trap handlers
-       0x141   sepc         Exception program counter
-       0x142   scause       Cause of trap
-       0x143   stval        Bad address or instruction
-       0x144   sip          Interrupt-pending register    (INACTIVE IN CLIC MODE)
- (NEW) 0x145   snxti        Interrupt handler address and enable modifier
- (NEW) 0xDB1   sintstatus   Current interrupt levels
- (NEW) 0x147   sintthresh   Interrupt-level threshold
- (NEW) 0x148   sscratchcsw  Conditional scratch swap on priv mode change
- (NEW) 0x149   sscratchcswl Conditional scratch swap on level change
-
-----
+|===
+|      Number |Name        |Description
+|      0x100  |sstatus     |Status register
+|      0x104  |sie         |Interrupt-enable register     (INACTIVE IN CLIC MODE)
+|      0x105  |stvec       |Trap-handler base address / interrupt mode
+|(NEW) 0x107  |stvt        |Trap-handler vector table base address
+|      0x140  |sscratch    |Scratch register for trap handlers
+|      0x141  |sepc        |Exception program counter
+|      0x142  |scause      |Cause of trap
+|      0x143  |stval       |Bad address or instruction
+|      0x144  |sip         |Interrupt-pending register    (INACTIVE IN CLIC MODE)
+|(NEW) 0x145  |snxti       |Interrupt handler address and enable modifier
+|(NEW) 0xDB1  |sintstatus  |Current interrupt levels
+|(NEW) 0x147  |sintthresh  |Interrupt-level threshold
+|(NEW) 0x148  |sscratchcsw |Conditional scratch swap on priv mode change
+|(NEW) 0x149  |sscratchcswl|Conditional scratch swap on level change
+|===
 
 ==== State Enable
 
@@ -1415,20 +1401,19 @@ exception.
 
 ==== ssclic Changes to {cause} CSRs
 
-[source]
-----
-scause
- Bits    Field        Description
- XLEN-1 Interrupt     Interrupt=1, Exception=0
-    30  (reserved for smclicshv extension)
-    29  (reserved)
-    28  spp           Previous privilege mode, same as sstatus.spp
-    27  spie          Previous interrupt enable, same as sstatus.spie
- 26:24  (reserved)
- 23:16  spil[7:0]     Previous interrupt level
- 15:12  (reserved)
- 11:0   exccode[11:0] Exception/interrupt code
-----
+.scause
+|===
+|Bits  | Field       |Description
+|XLEN-1|Interrupt    |Interrupt=1, Exception=0
+|   30 |             |(reserved for smclicshv extension)
+|   29 |             |(reserved)
+|   28 |spp          |Previous privilege mode, same as sstatus.spp
+|   27 |spie         |Previous interrupt enable, same as sstatus.spie
+|26:24 |             |(reserved)
+|23:16 |spil[7:0]    |Previous interrupt level
+|15:12 |             |(reserved)
+|11:0  |exccode[11:0]|Exception/interrupt code
+|===
 
 The supervisor `scause` register has only a single `spp` bit (to
 indicate user/supervisor) mirrored from `sstatus.spp`
@@ -1438,13 +1423,12 @@ indicate user/supervisor) mirrored from `sstatus.spp`
 A corresponding supervisor mode, `sintstatus` CSR
 provides restricted views of mintstatus.
 
-[source]
-----
-sintstatus fields
- 31:16 (reserved)
- 15: 8 sil
-  7: 0 uil if usclic is supported
-----
+.sintstatus fields
+|===
+|31:16|(reserved)
+|15: 8|sil
+| 7: 0|uil if usclic is supported
+|===
 
 ==== ssclic Scratch Swap CSR ({scratchcsw}) for Multiple Privilege Modes
 
@@ -1492,39 +1476,37 @@ Note: The proposed N-extension would add user-mode interrupts and traps, but has
 The interrupt-handling CSRs are listed below, with changes and
 additions for CLIC mode described in the following sections.
 
-[source]
-----
-       Number  Name         Description
-       0x000   ustatus      Status register
-       0x004   uie          Interrupt-enable register     (INACTIVE IN CLIC MODE)
-       0x005   utvec        Trap-handler base address / interrupt mode
- (NEW) 0x007   utvt         Trap-handler vector table base address
-       0x040   uscratch     Scratch register for trap handlers
-       0x041   uepc         Exception program counter
-       0x042   ucause       Cause of trap
-       0x043   utval        Bad address or instruction
-       0x044   uip          Interrupt-pending register    (INACTIVE IN CLIC MODE)
- (NEW) 0x045   unxti        Interrupt handler address and enable modifier
- (NEW) 0xCB1   uintstatus   Current interrupt levels
- (NEW) 0x047   uintthresh   Interrupt-level threshold
- (NEW) 0x049   uscratchcswl Conditional scratch swap on level change
-----
+|===
+|      Number |Name        |Description
+|      0x000  |ustatus     |Status register
+|      0x004  |uie         |Interrupt-enable register     (INACTIVE IN CLIC MODE)
+|      0x005  |utvec       |Trap-handler base address / interrupt mode
+|(NEW) 0x007  |utvt        |Trap-handler vector table base address
+|      0x040  |uscratch    |Scratch register for trap handlers
+|      0x041  |uepc        |Exception program counter
+|      0x042  |ucause      |Cause of trap
+|      0x043  |utval       |Bad address or instruction
+|      0x044  |uip         |Interrupt-pending register    (INACTIVE IN CLIC MODE)
+|(NEW) 0x045  |unxti       |Interrupt handler address and enable modifier
+|(NEW) 0xCB1  |uintstatus  |Current interrupt levels
+|(NEW) 0x047  |uintthresh  |Interrupt-level threshold
+|(NEW) 0x049  |uscratchcswl|Conditional scratch swap on level change
+|===
 
 ==== suclic Changes to {cause} CSRs
 
-[source]
-----
- ucause
- Bits    Field       Description
- XLEN-1 Interrupt    Interrupt=1, Exception=0
-    30  (reserved for smclicshv extension)
- 29:28  (reserved)
-    27  upie         Previous interrupt enable, same as ustatus.upie
- 26:24  (reserved)
- 23:16  upil[7:0]    Previous interrupt level
- 15:12  (reserved)
- 11:0  exccode[11:0] Exception/interrupt code
-----
+.ucause
+|===
+|Bits  | Field        |Description
+|XLEN-1|Interrupt     |Interrupt=1, Exception=0
+|   30 |              |(reserved for smclicshv extension)
+|29:28 |              |(reserved)
+|   27 |upie          |Previous interrupt enable, same as ustatus.upie
+|26:24 |              |(reserved)
+|23:16 |upil[7:0]     |Previous interrupt level
+|15:12 |              |(reserved)
+|11:0  |exccode[11:0] |Exception/interrupt code
+|===
 
 The user `ucause` register has no `upp` bit as interrupts can only have come
 from user mode.
@@ -1534,12 +1516,12 @@ from user mode.
 A corresponding user mode CSR, `uintstatus`
 provides restricted views of mintstatus.
 
-[source]
-----
- uintstatus fields
- 31: 8 (reserved)
-  7: 0 uil
-----
+.uintstatus fields
+|===
+|Bits  | Field
+|31: 8 |(reserved)
+| 7: 0 |uil
+|===
 
 === suclic CLIC Reset Behavior
 
@@ -1589,16 +1571,14 @@ bit.
 
 This is an 8-bit WARL read-write register to specify various attributes for each interrupt.
 
-[source]
-----
-  clicintattr register layout
-
-  Bits    Field
-  7:6     mode
-  5:3     reserved (WPRI 0)
-  2:1     trig
-  0       shv
-----
+.clicintattr register layout
+|===
+| Bits   |Field
+| 7:6    |mode
+| 5:3    |reserved (WPRI 0)
+| 2:1    |trig
+| 0      |shv
+|===
 
 The 1-bit `shv` field is used for Selective Hardware Vectoring.
 If `shv` is 0, it assigns this interrupt to be non-vectored and thus it jumps
