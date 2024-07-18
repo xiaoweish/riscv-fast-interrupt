@@ -436,7 +436,7 @@ Access to CLIC registers clicinttrig[i], clicintip[i], clicintie[i], clicintattr
 is specified using the Indirect CSR Access extension method (Smcsrind/Sscsrind).  A CSR accessible via
 indirect CSR access may or may not be accessible via another method such as memory-mapped access.
 
-[%autowidth,%hardbreaks,options="header"]
+[%autowidth,%hardbreaks,frame=all,options="header"]
 |===
 | miselect  |  mireg |  mireg                    |  mireg2 |  mireg2                    |    description
 |           |  bits  |  register state           |  bits   |  register state            |
