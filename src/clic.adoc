@@ -436,7 +436,7 @@ Access to CLIC registers clicinttrig[i], clicintip[i], clicintie[i], clicintattr
 is specified using the Indirect CSR Access extension method (Smcsrind/Sscsrind).  A CSR accessible via
 indirect CSR access may or may not be accessible via another method such as memory-mapped access.
 
-[%autowidth,options="header"]
+[%autowidth,%hardbreaks,options="header"]
 |===
 | miselect  |  mireg |  mireg                    |  mireg2 |  mireg2                    |    description
 |           |  bits  |  register state           |  bits   |  register state            |
@@ -450,7 +450,7 @@ In this miselect offset range,
 Each mireg register controls the clic level/priority setting of four interrupts
 Each mireg2 register controls the clic attribute setting of four interrupts
 
-[%autowidth,options="header"]
+[%autowidth,%hardbreaks,options="header"]
 |===
 | miselect  |   mireg  | mireg register state    |   mireg2  | mireg2 register state    |    description
 |           |   bits   |                         |   bits    |                          |
@@ -464,19 +464,19 @@ In this miselect offset range,
 Each mireg register controls the interrput pending of thirty-two interrupts.
 Each mireg2 register controls the interrupt enable of thrity-two interrupts.
 
-[%autowidth,options="header"]
+[%autowidth,%hardbreaks,options="header"]
 |===
 | miselect   |     mireg     |  mireg                |     description
 |            |     bits      |  register state       |
 | 0x1480     |     31:0     |   RW   clicinttrig[0]  |  clic interrupt trigger 0
 | 0x1480 + i |     31:0     |   RW   clicinttrig[i]  |  clic interrupt trigger i
- ...
+4+|...
 | 0x149F     |     31:0     |   RW   clicinttrig[31] |  clic interrupt trigger 31
 |===
 
 In this miselect offset range, each mireg register controls an interrput trigger register.
 
-[%autowidth,options="header"]
+[%autowidth,%hardbreaks,options="header"]
 |===
 | miselect  |     mireg    |  mireg
 |           |     bits     |  register state
@@ -495,7 +495,7 @@ NOTE: Since accessing `clicintip[__i__]`, `clicintie[__i__]`, `clicintattr[__i__
 
 == S-mode CLIC Register Access via Indirect CSR Access
 
-[%autowidth,options="header"]
+[%autowidth,%hardbreaks,options="header"]
 |===
 | siselect  |  sireg |  sireg                    |  sireg2 |  sireg2                    |    description
 |           |  bits  |  register state           |  bits   |  register state            |
@@ -509,13 +509,13 @@ In this siselect offset range,
 Each sireg register controls the clic level/priority setting of four interrupts
 Each sireg2 register controls the clic attribute setting of four interrupts
 
-[%autowidth,options="header"]
+[%autowidth,%hardbreaks,options="header"]
 |===
 | siselect  |   sireg  | sireg register state    |   sireg2  | sireg2 register state    |    description
 |           |   bits   |                         |   bits    |                          |
 | 0x1400    |   31:0   | RW clicintip[31:0]      |   31:0    | RW clicintie[31:0]       | settings for interrupts 31 through 0
 | 0x1401    |   31:0   | RW clicintip[63:32]     |   31:0    | RW clicintie[63:32]      | settings for interrupts 63 through 32
-  ...
+6+|...
 | 0x147F    |   31:0   | RW clicintip[4095:4064] |   31:0    | RW clicintie[4095:4064]  | settings for interrupts 4095 through 4064
 |===
 
@@ -523,19 +523,19 @@ In this siselect offset range,
 Each sireg register controls the interrput pending of thirty-two interrupts.
 Each sireg2 register controls the interrupt enable of thrity-two interrupts.
 
-[%autowidth,options="header"]
+[%autowidth,%hardbreaks,options="header"]
 |===
 | siselect   |     sireg     |  sireg                |     description
 |            |     bits      |  register state       |
 | 0x1480     |     31:0      |   RW   clicinttrig[0] |  clic interrupt trigger 0
 | 0x1480 + i |     31:0      |   RW   clicinttrig[i] |  clic interrupt trigger i
- ...
+4+|...
 | 0x149F     |     31:0      |   RW   clicinttrig[31]|  clic interrupt trigger 31
 |===
 
 In this siselect offset range, each mireg register controls an interrput trigger register.
 
-[%autowidth,options="header"]
+[%autowidth,%hardbreaks,options="header"]
 |===
 | siselect  |     sireg    |  sireg
 |           |     bits     |  register state
