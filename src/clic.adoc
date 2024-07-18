@@ -436,7 +436,7 @@ Access to CLIC registers clicinttrig[i], clicintip[i], clicintie[i], clicintattr
 is specified using the Indirect CSR Access extension method (Smcsrind/Sscsrind).  A CSR accessible via
 indirect CSR access may or may not be accessible via another method such as memory-mapped access.
 
-[%autowidth,%hardbreaks,frame=all,grid=all,options="header"]
+[%autowidth,%hardbreaks,options="header"]
 |===
 | miselect  |  mireg |  mireg                    |  mireg2 |  mireg2                    |    description
 |           |  bits  |  register state           |  bits   |  register state            |
@@ -641,7 +641,8 @@ NOTE: This register bit is defined as WARL as unimplemented interrupts appear ha
 
 This is an 8-bit WARL read-write register to specify various attributes for each interrupt.
 
-.clicintattr[i] register layout
+.`clicintattr[i]` register layout
+[%autowidth,%hardbreaks,options="header"]
 |===
 | Bits   |Field
 | 7:6    |mode
@@ -664,7 +665,8 @@ operates in.
 NOTE: This register is defined as WARL as some implementations may want to hardwire to fixed values
 only certain mode/trigger/shv types.
 
-.Encoding for RISC-V privilege levels (mstatus.mpp)
+.Encoding for RISC-V privilege levels (`mstatus.mpp`)
+[%autowidth,%hardbreaks,options="header"]
 |===
 |Level |Encoding|Name             |Abbreviation
 |0     |00      |User/Application |U
@@ -726,7 +728,8 @@ This logic is intended to be used with tmexttrigger.intctl as described in the R
 Each interrupt trigger is a 32-bit WARL register with the
 following layout:
 
-.clicinttrig register layout
+.`clicinttrig` register layout
+[%autowidth,%hardbreaks,options="header"]
 |===
 | Bits   |Field
 | 31     |interrupt_trap_enable
@@ -759,6 +762,7 @@ interrupt mode.
 The interrupt-handling CSRs are listed below, with changes and
 additions for CLIC mode described in the following sections.
 
+[%autowidth,%hardbreaks,options="header"]
 |===
 |      Number  |Name         |Description
 |      0x300   |mstatus      |Status register
@@ -819,7 +823,8 @@ specified as the upper XLEN-6 bits of {tvec} (`base`) with six
 lower zero bits appended, which constrains alignment on a 64-byte or
 larger power-of-two boundary.
 
-.CLIC mode xtvec register layout
+.CLIC mode `xtvec` register layout
+[%autowidth,%hardbreaks,options="header"]
 |===
 | Bits         |Field
 | XLEN-1:6     |base (WARL)
@@ -903,7 +908,8 @@ instruction. CLIC mode {cause} also adds state to record progress
 through the trap handling process.
 
 
-.mcause
+.`mcause`
+[%autowidth,%hardbreaks,options="header"]
 |===
 |Bits  | Field        |Description
 |XLEN-1|Interrupt     |Interrupt=1, Exception=0
@@ -1067,7 +1073,8 @@ A new M-mode CSR, `mintstatus`, holds the active interrupt level for
 each supported privilege mode.  These fields are read-only.  The
 primary reason to expose these fields is to support debug.
 
-.mintstatus fields
+.`mintstatus` fields
+[%autowidth,%hardbreaks,options="header"]
 |===
 |31:24 |mil
 |23:16 |(reserved) # To follow pattern of others.
@@ -1369,6 +1376,7 @@ The ssclic extension depends on the smclic extension.
 The interrupt-handling CSRs are listed below, with changes and
 additions for CLIC mode described in the following sections.
 
+[%autowidth,%hardbreaks,options="header"]
 |===
 |      Number |Name        |Description
 |      0x100  |sstatus     |Status register
@@ -1401,7 +1409,8 @@ exception.
 
 ==== ssclic Changes to {cause} CSRs
 
-.scause
+.`scause`
+[%autowidth,%hardbreaks,options="header"]
 |===
 |Bits  | Field       |Description
 |XLEN-1|Interrupt    |Interrupt=1, Exception=0
@@ -1423,7 +1432,8 @@ indicate user/supervisor) mirrored from `sstatus.spp`
 A corresponding supervisor mode, `sintstatus` CSR
 provides restricted views of mintstatus.
 
-.sintstatus fields
+.`sintstatus` fields
+[%autowidth,%hardbreaks,options="header"]
 |===
 |31:16|(reserved)
 |15: 8|sil
@@ -1476,6 +1486,7 @@ Note: The proposed N-extension would add user-mode interrupts and traps, but has
 The interrupt-handling CSRs are listed below, with changes and
 additions for CLIC mode described in the following sections.
 
+[%autowidth,%hardbreaks,options="header"]
 |===
 |      Number |Name        |Description
 |      0x000  |ustatus     |Status register
@@ -1495,7 +1506,8 @@ additions for CLIC mode described in the following sections.
 
 ==== suclic Changes to {cause} CSRs
 
-.ucause
+.`ucause`
+[%autowidth,%hardbreaks,options="header"]
 |===
 |Bits  | Field        |Description
 |XLEN-1|Interrupt     |Interrupt=1, Exception=0
@@ -1516,7 +1528,8 @@ from user mode.
 A corresponding user mode CSR, `uintstatus`
 provides restricted views of mintstatus.
 
-.uintstatus fields
+.`uintstatus` fields
+[%autowidth,%hardbreaks,options="header"]
 |===
 |Bits  | Field
 |31: 8 |(reserved)
@@ -1571,7 +1584,8 @@ bit.
 
 This is an 8-bit WARL read-write register to specify various attributes for each interrupt.
 
-.clicintattr register layout
+.`clicintattr` register layout
+[%autowidth,%hardbreaks,options="header"]
 |===
 | Bits   |Field
 | 7:6    |mode
