@@ -436,7 +436,7 @@ Access to CLIC registers clicinttrig[i], clicintip[i], clicintie[i], clicintattr
 is specified using the Indirect CSR Access extension method (Smcsrind/Sscsrind).  A CSR accessible via
 indirect CSR access may or may not be accessible via another method such as memory-mapped access.
 
-[%autowidth,float="center",align="center",cols="<,<,<,<",options="header"]
+[%autowidth,options="header"]
 |===
 | miselect  |  mireg |  mireg                    |  mireg2 |  mireg2                    |    description
 |           |  bits  |  register state           |  bits   |  register state            |
@@ -450,7 +450,7 @@ In this miselect offset range,
 Each mireg register controls the clic level/priority setting of four interrupts
 Each mireg2 register controls the clic attribute setting of four interrupts
 
-[%autowidth,float="center",align="center",cols="<,<,<,<",options="header"]
+[%autowidth,options="header"]
 |===
 | miselect  |   mireg  | mireg register state    |   mireg2  | mireg2 register state    |    description
 |           |   bits   |                         |   bits    |                          |
@@ -464,7 +464,7 @@ In this miselect offset range,
 Each mireg register controls the interrput pending of thirty-two interrupts.
 Each mireg2 register controls the interrupt enable of thrity-two interrupts.
 
-[%autowidth,float="center",align="center",cols="<,<,<,<",options="header"]
+[%autowidth,options="header"]
 |===
 | miselect   |     mireg     |  mireg                |     description
 |            |     bits      |  register state       |
@@ -476,7 +476,7 @@ Each mireg2 register controls the interrupt enable of thrity-two interrupts.
 
 In this miselect offset range, each mireg register controls an interrput trigger register.
 
-[%autowidth,float="center",align="center",cols="<,<,<,<",options="header"]
+[%autowidth,options="header"]
 |===
 | miselect  |     mireg    |  mireg
 |           |     bits     |  register state
@@ -495,7 +495,7 @@ NOTE: Since accessing `clicintip[__i__]`, `clicintie[__i__]`, `clicintattr[__i__
 
 == S-mode CLIC Register Access via Indirect CSR Access
 
-[%autowidth,float="center",align="center",cols="<,<,<,<",options="header"]
+[%autowidth,options="header"]
 |===
 | siselect  |  sireg |  sireg                    |  sireg2 |  sireg2                    |    description
 |           |  bits  |  register state           |  bits   |  register state            |
@@ -509,7 +509,7 @@ In this siselect offset range,
 Each sireg register controls the clic level/priority setting of four interrupts
 Each sireg2 register controls the clic attribute setting of four interrupts
 
-[%autowidth,float="center",align="center",cols="<,<,<,<",options="header"]
+[%autowidth,options="header"]
 |===
 | siselect  |   sireg  | sireg register state    |   sireg2  | sireg2 register state    |    description
 |           |   bits   |                         |   bits    |                          |
@@ -523,7 +523,7 @@ In this siselect offset range,
 Each sireg register controls the interrput pending of thirty-two interrupts.
 Each sireg2 register controls the interrupt enable of thrity-two interrupts.
 
-[%autowidth,float="center",align="center",cols="<,<,<,<",options="header"]
+[%autowidth,options="header"]
 |===
 | siselect   |     sireg     |  sireg                |     description
 |            |     bits      |  register state       |
@@ -535,7 +535,7 @@ Each sireg2 register controls the interrupt enable of thrity-two interrupts.
 
 In this siselect offset range, each mireg register controls an interrput trigger register.
 
-[%autowidth,float="center",align="center",cols="<,<,<,<",options="header"]
+[%autowidth,options="header"]
 |===
 | siselect  |     sireg    |  sireg
 |           |     bits     |  register state
