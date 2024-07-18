@@ -452,7 +452,7 @@ Each mireg2 register controls the clic attribute setting of four interrupts
 
 [%autowidth,%hardbreaks,options="header"]
 |===
-| miselect  |   mireg  | mireg register state    |   mireg2  | mireg2 register state    |    description
+| miselect{nbsp}  |   mireg  | mireg register state    |   mireg2  | mireg2 register state    |    description
 |           |   bits   |                         |   bits    |                          |
 | 0x1400    |   31:0   | RW clicintip[31:0]      |   31:0    | RW clicintie[31:0]       | settings for interrupts 31 through 0
 | 0x1401    |   31:0   | RW clicintip[63:32]     |   31:0    | RW clicintie[63:32]      | settings for interrupts 63 through 32
