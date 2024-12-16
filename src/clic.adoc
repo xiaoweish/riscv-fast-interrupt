@@ -3065,6 +3065,7 @@ ID  Interrupt
 2+  other
 ----
 
+[appendix]
 == CLIC register access via Memory-Mapped Registers Recommended Format
 If memory-mapped access is provided in addition to access via indirect CSR access, the following regions and access rules are recommended.
 
